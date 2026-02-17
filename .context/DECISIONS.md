@@ -29,3 +29,15 @@
 
 - Decision: Use `Start-AutoWipe-NAS.bat` on wipe rigs to connect `\\truenas\td_nas`, then launch AutoWipe from `\\truenas\td_nas\Autowipe`.
 - Rationale: Operator prioritizes one-click reliability over secret hygiene for this local production environment.
+## 2026-02-17 - D-007: Keep settings local and move only HDS XML path
+
+- Decision: Keep settings/log/progress files on local C:\HDMapping; do not switch to per-machine NAS settings folders yet. Set only HDS XML path to C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.xml.
+- Rationale: Operator requested deferring machine-by-machine settings migration while preserving current local workflow.
+## 2026-02-17 - D-008: Harden NAS launcher connectivity and diagnostics
+
+- Decision: Start-AutoWipe-NAS.bat first tries \\truenas\td_nas then falls back to \\192.168.0.184\td_nas, clears stale server sessions, and surfaces exit codes on launch failure.
+- Rationale: Field startup failures were hard to diagnose and could be caused by host resolution or stale credential sessions.
+## 2026-02-17 - D-009: Add persistent NAS launcher logging for field debugging
+
+- Decision: Start-AutoWipe-NAS.bat writes timestamped logs to Start-AutoWipe-NAS.log (script directory, fallback %TEMP%) covering elevation, NAS auth, path checks, and app exit code.
+- Rationale: Some rigs show no visible error when launching from desktop; persistent logs allow quick root-cause capture from operators.

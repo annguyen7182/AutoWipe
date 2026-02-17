@@ -35,3 +35,7 @@
 - (working tree) Updated multi-agent workflow docs to require `.context` startup and handoff updates.
 - (working tree) Added explicit agent precedence (Claude -> Codex -> Gemini) and required handoff signatures.
 - (working tree) Added `Start-AutoWipe-NAS.bat` launcher with NAS authentication and UNC startup.
+- (working tree) Kept settings files on local C:\HDMapping and changed HDS XML path in code to C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.xml.
+- (working tree) Hardened `Start-AutoWipe-NAS.bat` with hostname/IP fallback, NAS session cleanup, and visible launch error codes.
+- (working tree) Updated `Start-AutoWipe-NAS.bat` to show explicit elevation status and avoid silent exits during startup.
+- (working tree) Added persistent launcher log file `Start-AutoWipe-NAS.log` with timestamped step/error tracing including elevation handoff.

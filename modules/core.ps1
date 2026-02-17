@@ -51,7 +51,7 @@ $script:DEFAULTS = @{
 $script:ReferenceFile   = 'C:\HDMapping\Port_Reference.csv'          # Port,PortID
 $script:ProgressCsvPath = 'C:\HDMapping\Port_Serial_Progress.csv'    # Port,SerialRaw,SerialNorm,Verdict,Progress
 $script:LogPath         = 'C:\HDMapping\WipeWatcher.log'
-$script:HdsXmlPath      = 'C:\HDMapping\HDSentinel.xml'
+$script:HdsXmlPath      = 'C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.xml'
 
 # UI layout constants
 $script:RowHeight       = 22
