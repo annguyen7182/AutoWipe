@@ -2,121 +2,78 @@
 
 ![Version](https://img.shields.io/badge/version-4.5-blue.svg) ![Platform](https://img.shields.io/badge/platform-Windows_PowerShell_5.1-blue.svg)
 
-**AutoWipe** is an industrial automation system for high-volume hard drive testing and erasure. It acts as a "Robot Operator" for **Hard Disk Sentinel (HDS)**, managing up to 24 drives simultaneously with minimal human intervention.
+AutoWipe is a Windows PowerShell automation system for high-volume hard drive testing and erasure with Hard Disk Sentinel (HDS). It manages up to 24 rig ports with a live dashboard, verdict automation, and batch-driven actions.
 
-## Key Features
+## Status
 
-- **Traffic Light Grid**: Visual dashboard for 24 physical USB ports
-  - 🟢 **Green**: PASS (100% complete, no errors)
-  - 🔴 **Red**: FAIL (Error detected or health failure)
-  - 🟡 **Yellow**: READY / WIPING in progress
-  - 🟠 **Orange**: LOST (Drive disconnected mid-wipe)
+- Current stable release: **v4.5**
+- Runtime stack: **Windows 10/11 + PowerShell 5.1 + Hard Disk Sentinel Pro**
+- Repository layout in this branch is the canonical source of truth
 
-- **Auto-Wipe & Batch Logic**: Automatically starts surface tests with smart batching that waits for the operator to finish loading drives
+## Core Features
 
-- **Verdict Engine**: Analyzes HDS log windows to determine Pass/Fail without human review
+- Traffic-light grid for 24 physical ports (PASS, FAILED, in-progress, missing)
+- Automated verdict engine based on Surface Test progress and log length thresholds
+- Batch automation for refresh, save report, wipe start, and popup cleanup
+- Snapshot-safe popup dismissal to avoid closing critical HDS windows
+- Modular architecture for maintainability (`core`, `hds_control`, `watcher`, `automation`, `gui`)
 
-- **Auto-Cleanup**: Dismisses nuisance popups (error confirmations, "Are you sure?" dialogs) without closing critical windows
+## Repository Structure
 
-- **Modular Architecture**: Clean separation into 5 maintainable modules
-
----
+```text
+Autowipe/
+|-- autowipe_v4.5.ps1
+|-- autowipe_v4.5.bat
+|-- modules/
+|   |-- core.ps1
+|   |-- hds_control.ps1
+|   |-- watcher.ps1
+|   |-- automation.ps1
+|   `-- gui.ps1
+`-- docs/
+    |-- index.md
+    |-- CHANGELOG.md
+    |-- PROJECT_EVOLUTION.md
+    `-- MULTI_AGENT_WORKFLOW.md
+```
 
 ## Prerequisites
 
-1. **OS**: Windows 10 or 11
-2. **Software**:
-   - **Hard Disk Sentinel Pro** (default path: `C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.exe`)
-   - **PowerShell 5.1** or newer
-3. **Hardware**: USB wiping rig with known port mappings (up to 24 ports)
+1. Windows 10 or Windows 11
+2. PowerShell 5.1 or newer
+3. Hard Disk Sentinel Pro installed at:
+   - `C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.exe`
+4. Port mapping file at:
+   - `C:\HDMapping\Port_Reference.csv`
 
----
-
-## Installation
-
-### 1. File Placement
-Copy the `Autowipe_4.5` folder to your desired location (e.g., `C:\AutowipeApp`).
-
-### 2. Port Mapping Setup
-Create the data directory at **`C:\HDMapping\`** and place a **`Port_Reference.csv`** file:
+Example mapping format:
 
 ```csv
 PortNumber,PortID
 1,USB\VID_XXXX&PID_XXXX\Location_1
 2,USB\VID_XXXX&PID_XXXX\Location_2
-...
 ```
 
-This maps Windows `PNPDeviceID` strings to your physical slot numbers (1-24).
+## Run
 
----
+1. Open this folder locally.
+2. Start `autowipe_v4.5.bat` (or run `autowipe_v4.5.ps1`).
+3. Accept UAC elevation when prompted.
 
-## Usage
+## Documentation
 
-1. Navigate to the `Autowipe_4.5` folder
-2. Double-click **`autowipe_v4.5.bat`** (or right-click `autowipe_v4.5.ps1` → Run with PowerShell)
-3. Grant **Administrator privileges** when prompted (required for HDS window control)
-
-### Interface Controls
-
-| Button | Function |
-|--------|----------|
-| **Refresh Baseline** | Scan for newly connected drives |
-| **Auto-Check** | Toggle periodic Pass/Fail verdict scanning |
-| **Auto-Wipe** | Toggle automatic Surface Test launching |
-| **Clean** | Remove "Empty" or "Lost" rows from view |
-
----
-
-## Architecture
-
-```
-Autowipe_4.5/
-├── autowipe_v4.5.ps1    # Entry point (loads modules)
-├── autowipe_v4.5.bat    # Batch launcher
-└── modules/
-    ├── core.ps1         # Config, logging, CSV, Win32 API
-    ├── hds_control.ps1  # Window enumeration, button clicking
-    ├── watcher.ps1      # Port mapping, verdict engine
-    ├── automation.ps1   # Timers, batch logic, scheduling
-    └── gui.ps1          # WinForms interface
-```
-
-| Module | Role |
-|--------|------|
-| **Core** | Foundation - logging, configuration, Win32 P/Invoke |
-| **HDS Control** | "The Hands" - clicks buttons, manages windows |
-| **Watcher** | "The Eyes" - maps ports, judges Pass/Fail |
-| **Automation** | "The Brain" - timers, batch scheduling |
-| **GUI** | "The Face" - visual grid display |
-
----
+- Overview: `docs/index.md`
+- Changelog: `docs/CHANGELOG.md`
+- Development history: `docs/PROJECT_EVOLUTION.md`
+- Claude + Codex + Gemini handoff workflow: `docs/MULTI_AGENT_WORKFLOW.md`
+- Shared multi-agent context spine: `.context/`
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| "HDS not found" | Install Hard Disk Sentinel to default `Program Files (x86)` path |
-| Drives showing as "Disk 0" | Check `Port_Reference.csv` mapping; look for "UNMAPPED_PORT" in logs |
-| Popups not closing | Close pre-existing popups manually; the safety snapshot may have captured them |
-
----
-
-## Version History
-
-| Version | Changes |
-|---------|---------|
-| v1.0 | Basic port-to-serial grid display |
-| v2.x | Surface Test window tracking |
-| v3.x | Verdict logic, report indexing |
-| v4.0 | Modular refactor (5 modules) |
-| v4.1-4.4 | Batch timing, Auto-Clean, GUI fixes |
-| **v4.5** | Stable release - Lost Drive detection, snapshot cleanup, refined verdicts |
-
-See `docs/PROJECT_EVOLUTION.md` for the full development story.
-
----
+- HDS not found: confirm install path in `modules/hds_control.ps1`
+- Incorrect port display: verify `C:\HDMapping\Port_Reference.csv`
+- Popups not closing: manually clear old dialogs, then rerun automation
 
 ## License
 
-This project was developed for internal production use.
+Internal production use.
