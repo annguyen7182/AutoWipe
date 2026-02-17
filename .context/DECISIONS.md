@@ -24,3 +24,8 @@
 
 - Decision: Every completed handoff/report must end with `Signed-By: <Claude|Codex|Gemini>`.
 - Rationale: Adds lightweight accountability and clear authorship across multi-agent sessions.
+
+## 2026-02-17 - D-006: Use local NAS launcher with embedded credential
+
+- Decision: Use `Start-AutoWipe-NAS.bat` on wipe rigs to connect `\\truenas\td_nas`, then launch AutoWipe from `\\truenas\td_nas\Autowipe`.
+- Rationale: Operator prioritizes one-click reliability over secret hygiene for this local production environment.

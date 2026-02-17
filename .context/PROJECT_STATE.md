@@ -11,6 +11,8 @@
 - Agents (Claude/Codex/Gemini) read `.context/*` before implementation work.
 - Agent precedence for conflict resolution is Claude -> Codex -> Gemini.
 - Completed handoffs must include `Signed-By: <Claude|Codex|Gemini>`.
+- AutoWipe is launched from NAS share `\\truenas\td_nas\Autowipe` using a local launcher.
+- HDS XML remains local at `C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.xml`.
 
 ## Active tasks (ranked)
 
@@ -32,3 +34,4 @@
 - (working tree) Added initial `.context/` context spine files for shared agent memory.
 - (working tree) Updated multi-agent workflow docs to require `.context` startup and handoff updates.
 - (working tree) Added explicit agent precedence (Claude -> Codex -> Gemini) and required handoff signatures.
+- (working tree) Added `Start-AutoWipe-NAS.bat` launcher with NAS authentication and UNC startup.
