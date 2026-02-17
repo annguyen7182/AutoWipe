@@ -41,3 +41,8 @@
 
 - Decision: Start-AutoWipe-NAS.bat writes timestamped logs to Start-AutoWipe-NAS.log (script directory, fallback %TEMP%) covering elevation, NAS auth, path checks, and app exit code.
 - Rationale: Some rigs show no visible error when launching from desktop; persistent logs allow quick root-cause capture from operators.
+
+## 2026-02-17 - D-010: Capture v5 fleet web-control design as review artifact
+
+- Decision: Store the proposed major update architecture in `autowipe_v5.0.MD` as a draft specification before implementation.
+- Rationale: Enables iterative review and risk trimming for a large multi-machine control-plane change without destabilizing v4.5 runtime behavior.

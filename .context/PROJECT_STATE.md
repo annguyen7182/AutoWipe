@@ -13,6 +13,7 @@
 - Completed handoffs must include `Signed-By: <Claude|Codex|Gemini>`.
 - AutoWipe is launched from NAS share `\\truenas\td_nas\Autowipe` using a local launcher.
 - HDS XML remains local at `C:\Program Files (x86)\Hard Disk Sentinel\HDSentinel.xml`.
+- Fleet web-control scope for v5 is currently documented as a draft in `autowipe_v5.0.MD` and remains under review.
 
 ## Active tasks (ranked)
 
@@ -39,3 +40,4 @@
 - (working tree) Hardened `Start-AutoWipe-NAS.bat` with hostname/IP fallback, NAS session cleanup, and visible launch error codes.
 - (working tree) Updated `Start-AutoWipe-NAS.bat` to show explicit elevation status and avoid silent exits during startup.
 - (working tree) Added persistent launcher log file `Start-AutoWipe-NAS.log` with timestamped step/error tracing including elevation handoff.
+- (working tree) Added `autowipe_v5.0.MD` with v5 fleet monitoring/control architecture proposal for review.

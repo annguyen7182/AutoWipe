@@ -10,9 +10,11 @@
 - [ ] Add first real feature/bug task entry when implementation work begins.
 - [ ] Link commits/PRs to completed tasks once Git history exists for this workflow.
 - [ ] Add machine-folder path resolution in code (`machines/<COMPUTERNAME>`) while keeping HDS XML local (deferred for now).
+- [ ] Review and finalize `autowipe_v5.0.MD` architecture decisions before implementation kickoff.
 
 ## Completed
 
+- [x] Create `autowipe_v5.0.MD` planning document for fleet-wide web monitoring and control (v5 proposal).
 - [x] Add persistent troubleshooting log output to `Start-AutoWipe-NAS.bat` (`Start-AutoWipe-NAS.log`) for launch/elevation diagnostics.
 - [x] Improve launcher visibility by showing elevation request/failure messages in `Start-AutoWipe-NAS.bat`.
 - [x] Improve `Start-AutoWipe-NAS.bat` reliability with hostname/IP fallback and explicit launch/auth error output.
